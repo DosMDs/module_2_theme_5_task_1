@@ -2,6 +2,10 @@ import { TodoItem } from "../TodoItem/TodoItem";
 import styles from "./TodoList.module.css";
 
 export const TodoList = ({ todos }) => {
+	if (todos.length === 0) {
+		return <h1>Задач пока нет.</h1>;
+	}
+
 	return (
 		<ul className={styles.todoList}>
 			{todos.map((todo) => {
