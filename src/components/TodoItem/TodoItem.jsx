@@ -11,6 +11,8 @@ export const TodoItem = ({ title, completed }) => {
 				type="checkbox"
 				checked={completed}
 				className={styles.checkbox}
+				disabled={true}
+				onChange={() => {}}
 			/>
 			<span className={styles.title}>{title}</span>
 		</li>
