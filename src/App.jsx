@@ -13,11 +13,7 @@ function App() {
 		setRefreshTodosFlag(!refreshTodosFlag);
 	};
 
-	const { todos, isLoading } = useGetTodos(
-		titleToSearch,
-		refreshTodosFlag,
-		setError
-	);
+	const { todos, isLoading } = useGetTodos();
 
 	return (
 		<div className={styles.todoContainer}>

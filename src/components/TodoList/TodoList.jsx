@@ -13,12 +13,13 @@ export const TodoList = ({ todos, titleToSearch, refreshTodosList }) => {
 
 	return (
 		<ul className={styles.todoList}>
-			{todos.map((todo) => {
+			{Object.entries(todos).map(([id, { title, completed }]) => {
 				return (
 					<TodoItem
-						key={todo.id}
+						key={id}
 						refreshTodosList={refreshTodosList}
-						{...todo}
+						title={title}
+						completed={completed}
 					/>
 				);
 			})}

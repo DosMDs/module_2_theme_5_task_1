@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
-import { fetchData } from "../utils";
+import { ref, onValue } from "firebase/database";
+import { db } from "../firebase";
 
-export const useGetTodos = (titleToSearch, refreshTodosFlag, setError) => {
+export const useGetTodos = () => {
 	const [todos, setTodos] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		setIsLoading(true);
 
-		fetchData({
-			search: { title_like: titleToSearch },
-		})
-			.then((result) => {
-				setTodos(result.data);
-				setError(result.error);
-			})
-			.finally(setIsLoading(false));
-	}, [refreshTodosFlag, titleToSearch, setError]);
+		const todosDbRef = ref(db, "todos");
+
+		return onValue(todosDbRef, (snapshot) => {
+			const loadedTodos = snapshot.val() || [];
+
+			setTodos(loadedTodos);
+			setIsLoading(false);
+		});
+	}, []);
 
 	return { todos, isLoading };
 };
