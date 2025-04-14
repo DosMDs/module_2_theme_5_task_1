@@ -11,35 +11,58 @@ function App() {
 	const [refreshTodos, setRefreshTodos] = useState(false);
 	const [titleToSearch, setTitleToSearch] = useState("");
 	const [isCreating, setIsCreating] = useState(false);
+	const [isUpdating, setIsUpdating] = useState(false);
+	const [isDeleting, setIsDeleting] = useState(false);
 
 	useEffect(() => {
 		setIsLoading(true);
-		const getTodos = async () => {
-			const result = await fetchData({ titleToSearch });
-			setTodos(result.data);
-			setError(result.error);
-			setIsLoading(false);
-		};
-		getTodos();
+
+		fetchData({
+			search: { title_like: titleToSearch },
+		})
+			.then((result) => {
+				setTodos(result.data);
+				setError(result.error);
+			})
+			.finally(setIsLoading(false));
 	}, [refreshTodos, titleToSearch]);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		if (!newTodo.trim()) {
-			return;
-		}
+
 		setIsCreating(true);
-		const addTodo = async (todo) => {
-			const result = await fetchData({ method: "POST", body: todo });
-			setError(result.error);
-			setRefreshTodos(!refreshTodos);
-			setIsCreating(false);
-			setNewTodo("");
-		};
 
 		const todo = { title: newTodo, completed: false };
-		addTodo(todo);
+		fetchData({ method: "POST", body: todo })
+			.then((result) => {
+				setError(result.error);
+				setIsCreating(false);
+				setNewTodo("");
+			})
+			.finally(setRefreshTodos(!refreshTodos));
 	};
+
+	const handleUpdate = (id, body) => {
+		setIsUpdating(true);
+		fetchData({ method: "PUT", id, body })
+			.then((result) => {
+				setError(result.error);
+				setIsUpdating(false);
+			})
+			.finally(setRefreshTodos(!refreshTodos));
+	};
+
+	const handleDelete = (id) => {
+		setIsDeleting(true);
+		fetchData({ method: "DELETE", id })
+			.then((result) => {
+				setError(result.error);
+				setIsDeleting(false);
+			})
+			.finally(setRefreshTodos(!refreshTodos));
+	};
+
+	const disabled = isCreating || isUpdating || isDeleting;
 
 	return (
 		<div className={styles.todoContainer}>
@@ -47,7 +70,7 @@ function App() {
 				newTodo={newTodo}
 				setNewTodo={setNewTodo}
 				handleSubmit={handleSubmit}
-				isCreating={isCreating}
+				disabled={disabled}
 				setTitleToSearch={setTitleToSearch}
 			/>
 			{error ? (
@@ -55,7 +78,13 @@ function App() {
 			) : isLoading ? (
 				<div className={styles.loader} />
 			) : (
-				<TodoList todos={todos} titleToSearch={titleToSearch} />
+				<TodoList
+					todos={todos}
+					titleToSearch={titleToSearch}
+					disabled={disabled}
+					handleUpdate={handleUpdate}
+					handleDelete={handleDelete}
+				/>
 			)}
 		</div>
 	);

@@ -6,7 +6,7 @@ export const TodoForm = ({
 	newTodo,
 	setNewTodo,
 	handleSubmit,
-	isCreating,
+	disabled,
 	setTitleToSearch,
 }) => {
 	const [searchValue, setSearchValue] = useState("");
@@ -32,7 +32,7 @@ export const TodoForm = ({
 				<button
 					type="submit"
 					className={styles.addBtn}
-					disabled={isCreating}
+					disabled={disabled}
 				>
 					Добавить новую задачу
 				</button>

@@ -1,7 +1,13 @@
 import { TodoItem } from "../TodoItem/TodoItem";
 import styles from "./TodoList.module.css";
 
-export const TodoList = ({ todos, titleToSearch }) => {
+export const TodoList = ({
+	todos,
+	titleToSearch,
+	disabled,
+	handleUpdate,
+	handleDelete,
+}) => {
 	if (todos.length === 0) {
 		if (titleToSearch) {
 			return (
@@ -14,7 +20,15 @@ export const TodoList = ({ todos, titleToSearch }) => {
 	return (
 		<ul className={styles.todoList}>
 			{todos.map((todo) => {
-				return <TodoItem key={todo.id} {...todo} />;
+				return (
+					<TodoItem
+						key={todo.id}
+						handleUpdate={handleUpdate}
+						handleDelete={handleDelete}
+						disabled={disabled}
+						{...todo}
+					/>
+				);
 			})}
 		</ul>
 	);
