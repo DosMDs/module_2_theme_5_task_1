@@ -20,6 +20,7 @@ export const TodoList = ({ todos, titleToSearch, refreshTodosList }) => {
 						refreshTodosList={refreshTodosList}
 						title={title}
 						completed={completed}
+						id={id}
 					/>
 				);
 			})}

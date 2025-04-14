@@ -5,14 +5,7 @@ import { useUpdateTodo } from "../../hooks";
 import { IconButton } from "../IconButton/IconButton";
 import styles from "./TodoItemEdit.module.css";
 
-export const TodoItemEdit = ({
-	id,
-	title,
-	completed,
-	refreshTodosList,
-	isEdit,
-	setIsEdit,
-}) => {
+export const TodoItemEdit = ({ id, title, completed, isEdit, setIsEdit }) => {
 	const [newTitle, setNewTitle] = useState(title);
 	const inputRef = useRef(null);
 
@@ -22,7 +15,7 @@ export const TodoItemEdit = ({
 		}
 	}, [isEdit]);
 
-	const { isUpdating, updateTodo } = useUpdateTodo(refreshTodosList);
+	const { isUpdating, updateTodo } = useUpdateTodo();
 
 	const handleUpdate = (id) => {
 		const body = { title: newTitle, completed };

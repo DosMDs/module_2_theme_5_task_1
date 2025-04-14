@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { fetchData } from "../utils";
+import { ref, set } from "firebase/database";
+import { db } from "../firebase";
 
-export const useUpdateTodo = (refreshTodosList) => {
+export const useUpdateTodo = () => {
 	const [isUpdating, setIsUpdating] = useState(false);
 
-	const updateTodo = (id, body) => {
+	const updateTodo = (id, todo) => {
 		setIsUpdating(true);
 
-		fetchData({ method: "PUT", id, body })
-			.then((result) => {
-				refreshTodosList(result);
-			})
-			.finally(setIsUpdating(false));
+		const todoDbRef = ref(db, `todos/${id}`);
+
+		set(todoDbRef, todo);
+		setIsUpdating(false);
 	};
 
 	return {

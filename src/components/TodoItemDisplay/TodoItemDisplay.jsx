@@ -11,7 +11,7 @@ export const TodoItemDisplay = ({
 	refreshTodosList,
 	setIsEdit,
 }) => {
-	const { isUpdating, updateTodo } = useUpdateTodo(refreshTodosList);
+	const { isUpdating, updateTodo } = useUpdateTodo();
 	const { isDeleting, deleteTodo } = useDeleteTodo(refreshTodosList);
 
 	const handleCheckboxUpdate = (id) => {
