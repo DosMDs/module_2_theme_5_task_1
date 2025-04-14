@@ -4,21 +4,22 @@ import { TodoForm, TodoList } from "./components";
 import styles from "./App.module.css";
 
 function App() {
-	const [todos, setTodos] = useState(null);
+	const [todos, setTodos] = useState([]);
 	const [error, setError] = useState(null);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 	const [newTodo, setNewTodo] = useState("");
 	const [refreshTodos, setRefreshTodos] = useState(false);
 	const [isCreating, setIsCreating] = useState(false);
 
 	useEffect(() => {
-		const getData = async () => {
+		setIsLoading(true);
+		const getTodos = async () => {
 			const result = await fetchData();
 			setTodos(result.data);
 			setError(result.error);
 			setIsLoading(false);
 		};
-		getData();
+		getTodos();
 	}, [refreshTodos]);
 
 	const handleSubmit = (event) => {
@@ -39,13 +40,6 @@ function App() {
 		addTodo(todo);
 	};
 
-	if (isLoading) {
-		return <h1>Is Loading...</h1>;
-	}
-	if (error) {
-		return <h1>{error}</h1>;
-	}
-
 	return (
 		<div className={styles.todoContainer}>
 			<TodoForm
@@ -54,7 +48,13 @@ function App() {
 				handleSubmit={handleSubmit}
 				isCreating={isCreating}
 			/>
-			<TodoList todos={todos} />
+			{error ? (
+				<h1>{error}</h1>
+			) : isLoading ? (
+				<div className={styles.loader} />
+			) : (
+				<TodoList todos={todos} />
+			)}
 		</div>
 	);
 }
