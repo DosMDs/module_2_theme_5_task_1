@@ -5,29 +5,16 @@ import styles from "./App.module.css";
 
 function App() {
 	const [titleToSearch, setTitleToSearch] = useState("");
-	const [error, setError] = useState(null);
-	const [refreshTodosFlag, setRefreshTodosFlag] = useState(false);
-
-	const refreshTodosList = (result) => {
-		setError(result.error);
-		setRefreshTodosFlag(!refreshTodosFlag);
-	};
 
 	const { todos, isLoading } = useGetTodos();
 
 	return (
 		<div className={styles.todoContainer}>
 			<TodoForm setTitleToSearch={setTitleToSearch} />
-			{error ? (
-				<h1>{error}</h1>
-			) : isLoading ? (
+			{isLoading ? (
 				<div className={styles.loader} />
 			) : (
-				<TodoList
-					todos={todos}
-					titleToSearch={titleToSearch}
-					refreshTodosList={refreshTodosList}
-				/>
+				<TodoList todos={todos} titleToSearch={titleToSearch} />
 			)}
 		</div>
 	);

@@ -4,15 +4,9 @@ import editIcon from "../../assets/edit.svg";
 import deleteIcon from "../../assets/delete.svg";
 import styles from "./TodoItemDisplay.module.css";
 
-export const TodoItemDisplay = ({
-	id,
-	title,
-	completed,
-	refreshTodosList,
-	setIsEdit,
-}) => {
+export const TodoItemDisplay = ({ id, title, completed, setIsEdit }) => {
 	const { isUpdating, updateTodo } = useUpdateTodo();
-	const { isDeleting, deleteTodo } = useDeleteTodo(refreshTodosList);
+	const { isDeleting, deleteTodo } = useDeleteTodo();
 
 	const handleCheckboxUpdate = (id) => {
 		const body = { completed: !completed, title };
