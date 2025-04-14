@@ -3,11 +3,11 @@ import clearIcon from "../../assets/clear.svg";
 import styles from "./TodoForm.module.css";
 import { useAddTodo } from "../../hooks";
 
-export const TodoForm = ({ setTitleToSearch, refreshTodosList }) => {
+export const TodoForm = ({ setTitleToSearch }) => {
 	const [newTodo, setNewTodo] = useState("");
 	const [searchValue, setSearchValue] = useState("");
 
-	const { isCreating, addTodo } = useAddTodo(refreshTodosList);
+	const { isCreating, addTodo } = useAddTodo();
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
@@ -20,6 +20,7 @@ export const TodoForm = ({ setTitleToSearch, refreshTodosList }) => {
 		event.preventDefault();
 
 		addTodo(newTodo);
+		setNewTodo("");
 	};
 
 	return (

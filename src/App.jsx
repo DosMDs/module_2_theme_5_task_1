@@ -17,10 +17,7 @@ function App() {
 
 	return (
 		<div className={styles.todoContainer}>
-			<TodoForm
-				setTitleToSearch={setTitleToSearch}
-				refreshTodosList={refreshTodosList}
-			/>
+			<TodoForm setTitleToSearch={setTitleToSearch} />
 			{error ? (
 				<h1>{error}</h1>
 			) : isLoading ? (

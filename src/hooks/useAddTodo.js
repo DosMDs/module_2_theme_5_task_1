@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { fetchData } from "../utils";
+import { ref, push } from "firebase/database";
+import { db } from "../firebase";
 
-export const useAddTodo = (refreshTodosList) => {
+export const useAddTodo = () => {
 	const [isCreating, setIsCreating] = useState(false);
 
 	const addTodo = (title) => {
 		setIsCreating(true);
 
+		const todosDbRef = ref(db, "todos");
 		const todo = { title, completed: false };
-		fetchData({ method: "POST", body: todo })
-			.then((result) => {
-				refreshTodosList(result);
-			})
-			.finally(setIsCreating(false));
+
+		push(todosDbRef, todo);
+		setIsCreating(false);
 	};
 
 	return {
