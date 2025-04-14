@@ -4,11 +4,9 @@ import { db } from "../firebase";
 
 export const useGetTodos = () => {
 	const [todos, setTodos] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		setIsLoading(true);
-
 		const todosDbRef = ref(db, "todos");
 
 		return onValue(todosDbRef, (snapshot) => {
