@@ -1,101 +1,23 @@
-import editIcon from "../../assets/edit.svg";
-import deleteIcon from "../../assets/delete.svg";
-import approveIcon from "../../assets/approve.svg";
-import cancelIcon from "../../assets/cancel.svg";
 import styles from "./TodoItem.module.css";
-import { useState, useRef, useEffect } from "react";
-import { IconButton } from "../IconButton/IconButton";
+import { useState } from "react";
+import { TodoItemDisplay } from "../TodoItemDisplay/TodoItemDisplay";
+import { TodoItemEdit } from "../TodoItemEdit/TodoItemEdit";
 
-export const TodoItem = ({
-	id,
-	title,
-	completed,
-	disabled,
-	handleUpdate,
-	handleDelete,
-}) => {
-	const [newTitle, setNewTitle] = useState(title);
+export const TodoItem = (props) => {
 	const [isEdit, setIsEdit] = useState(false);
-	const inputRef = useRef(null);
-
-	useEffect(() => {
-		if (isEdit && inputRef.current) {
-			inputRef.current.focus();
-		}
-	}, [isEdit]);
-
-	const getVisual = () => (
-		<>
-			<input
-				type="checkbox"
-				checked={completed}
-				className={styles.checkbox}
-				disabled={disabled}
-				onChange={() =>
-					handleUpdate(id, { completed: !completed, title })
-				}
-			/>
-			<span className={styles.title}>{title}</span>
-			<IconButton
-				src={editIcon}
-				alt="Изменить"
-				handleOnClick={() => setIsEdit(true)}
-				disabled={disabled}
-			/>
-			<IconButton
-				src={deleteIcon}
-				alt="Удалить"
-				disabled={disabled}
-				handleOnClick={() => handleDelete(id)}
-			/>
-		</>
-	);
-
-	const getEditor = () => (
-		<>
-			<form
-				onSubmit={(event) => {
-					event.preventDefault();
-					handleUpdate(id, { title: newTitle, completed });
-					setIsEdit(false);
-				}}
-				className={styles.formEdit}
-			>
-				<input
-					type="text"
-					value={newTitle}
-					onChange={(e) => setNewTitle(e.target.value)}
-					placeholder={title}
-					className={styles.title}
-					ref={inputRef}
-					required
-				/>
-				<IconButton
-					type="submit"
-					src={approveIcon}
-					alt="Принять"
-					disabled={disabled}
-				/>
-				<IconButton
-					src={cancelIcon}
-					alt="Отменить"
-					handleOnClick={() => {
-						setIsEdit(false);
-						setNewTitle(title);
-					}}
-					disabled={disabled}
-				/>
-			</form>
-		</>
-	);
+	const componentProps = { ...props, isEdit, setIsEdit };
 
 	return (
 		<li
 			className={`${styles.todoItem} ${
-				completed && !isEdit ? styles.completed : ""
+				props.completed && !isEdit ? styles.completed : ""
 			}`}
 		>
-			{isEdit ? getEditor() : getVisual()}
+			{isEdit ? (
+				<TodoItemEdit {...componentProps} />
+			) : (
+				<TodoItemDisplay {...componentProps} />
+			)}
 		</li>
 	);
 };
