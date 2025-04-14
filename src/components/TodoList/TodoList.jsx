@@ -1,8 +1,13 @@
 import { TodoItem } from "../TodoItem/TodoItem";
 import styles from "./TodoList.module.css";
 
-export const TodoList = ({ todos }) => {
+export const TodoList = ({ todos, titleToSearch }) => {
 	if (todos.length === 0) {
+		if (titleToSearch) {
+			return (
+				<h1>{`Задач с наименованием содержащем "${titleToSearch}". Не найдено.`}</h1>
+			);
+		}
 		return <h1>Задач пока нет.</h1>;
 	}
 

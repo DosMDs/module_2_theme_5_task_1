@@ -1,17 +1,33 @@
+.todoFormWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	width: 100%;
+	padding-bottom: 10px;
+}
+
 .todoForm {
 	display: flex;
-	margin-bottom: 1.5rem;
-  }
+	gap: 12px;
+}
 
-  .todoInput {
+.searchInput {
+	padding: 8px 12px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.todoInput {
 	flex: 1;
 	padding: 0.75rem 1rem;
 	border: 1px solid #ccc;
 	border-radius: 8px 0 0 8px;
 	font-size: 1rem;
-  }
+}
 
-  .addBtn {
+.addBtn {
 	padding: 0 1.25rem;
 	font-size: 1.25rem;
 	background-color: #4caf50;
@@ -20,8 +36,52 @@
 	border-radius: 0 8px 8px 0;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
-  }
+}
 
-  .addBtn:hover {
+.addBtn:hover {
 	background-color: #43a047;
-  }
+}
+
+.searchInput {
+	margin-top: 12px;
+	padding: 8px 12px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.searchWrapper {
+	position: relative;
+	width: 100%;
+}
+
+.searchInput {
+	padding: 8px 36px 8px 12px; /* место под крестик справа */
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.clearBtn {
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translateY(-50%);
+	background: transparent;
+	border: none;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	color: #888;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+}
+
+.clearBtn:hover {
+	color: #000;
+}

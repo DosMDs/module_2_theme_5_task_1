@@ -9,18 +9,19 @@ function App() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [newTodo, setNewTodo] = useState("");
 	const [refreshTodos, setRefreshTodos] = useState(false);
+	const [titleToSearch, setTitleToSearch] = useState("");
 	const [isCreating, setIsCreating] = useState(false);
 
 	useEffect(() => {
 		setIsLoading(true);
 		const getTodos = async () => {
-			const result = await fetchData();
+			const result = await fetchData({ titleToSearch });
 			setTodos(result.data);
 			setError(result.error);
 			setIsLoading(false);
 		};
 		getTodos();
-	}, [refreshTodos]);
+	}, [refreshTodos, titleToSearch]);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -29,7 +30,7 @@ function App() {
 		}
 		setIsCreating(true);
 		const addTodo = async (todo) => {
-			const result = await fetchData("POST", todo);
+			const result = await fetchData({ method: "POST", body: todo });
 			setError(result.error);
 			setRefreshTodos(!refreshTodos);
 			setIsCreating(false);
@@ -47,13 +48,14 @@ function App() {
 				setNewTodo={setNewTodo}
 				handleSubmit={handleSubmit}
 				isCreating={isCreating}
+				setTitleToSearch={setTitleToSearch}
 			/>
 			{error ? (
 				<h1>{error}</h1>
 			) : isLoading ? (
 				<div className={styles.loader} />
 			) : (
-				<TodoList todos={todos} />
+				<TodoList todos={todos} titleToSearch={titleToSearch} />
 			)}
 		</div>
 	);
