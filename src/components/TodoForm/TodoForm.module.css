@@ -85,3 +85,10 @@
 .clearBtn:hover {
 	color: #000;
 }
+
+.clearIcon {
+	height: 36px;
+	width: 36x;
+	padding-top: 11px;
+	padding-left: 7px;
+}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import clearIcon from "../../assets/clear.svg";
 import styles from "./TodoForm.module.css";
 
 export const TodoForm = ({
@@ -51,7 +52,7 @@ export const TodoForm = ({
 					onClick={() => setSearchValue("")}
 					aria-label="Очистить поиск"
 				>
-					✕
+					<img src={clearIcon} alt="X" className={styles.clearIcon} />
 				</button>
 			</div>
 		</div>
