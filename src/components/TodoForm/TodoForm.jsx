@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
 import clearIcon from "../../assets/clear.svg";
 import styles from "./TodoForm.module.css";
+import { useAddTodo } from "../../hooks";
 
-export const TodoForm = ({
-	newTodo,
-	setNewTodo,
-	handleSubmit,
-	disabled,
-	setTitleToSearch,
-}) => {
+export const TodoForm = ({ setTitleToSearch, refreshTodosList }) => {
+	const [newTodo, setNewTodo] = useState("");
 	const [searchValue, setSearchValue] = useState("");
+
+	const { isCreating, addTodo } = useAddTodo(refreshTodosList);
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
@@ -17,6 +15,12 @@ export const TodoForm = ({
 		}, 300);
 		return () => clearTimeout(timeout);
 	}, [searchValue, setTitleToSearch]);
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+
+		addTodo(newTodo);
+	};
 
 	return (
 		<div className={styles.todoFormWrapper}>
@@ -32,7 +36,7 @@ export const TodoForm = ({
 				<button
 					type="submit"
 					className={styles.addBtn}
-					disabled={disabled}
+					disabled={isCreating}
 				>
 					Добавить новую задачу
 				</button>

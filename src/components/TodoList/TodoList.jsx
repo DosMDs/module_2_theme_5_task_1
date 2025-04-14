@@ -1,13 +1,7 @@
 import { TodoItem } from "../TodoItem/TodoItem";
 import styles from "./TodoList.module.css";
 
-export const TodoList = ({
-	todos,
-	titleToSearch,
-	disabled,
-	handleUpdate,
-	handleDelete,
-}) => {
+export const TodoList = ({ todos, titleToSearch, refreshTodosList }) => {
 	if (todos.length === 0) {
 		if (titleToSearch) {
 			return (
@@ -23,9 +17,7 @@ export const TodoList = ({
 				return (
 					<TodoItem
 						key={todo.id}
-						handleUpdate={handleUpdate}
-						handleDelete={handleDelete}
-						disabled={disabled}
+						refreshTodosList={refreshTodosList}
 						{...todo}
 					/>
 				);
