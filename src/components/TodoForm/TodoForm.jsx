@@ -2,8 +2,16 @@ import { useState, useEffect } from "react";
 import clearIcon from "../../assets/clear.svg";
 import styles from "./TodoForm.module.css";
 import { useAddTodo } from "../../hooks";
+import { IconButton } from "../IconButton/IconButton";
+import sortAscIcon from "../../assets/sort-asc.svg";
+import sortDescIcon from "../../assets/sort-desc.svg";
 
-export const TodoForm = ({ setTitleToSearch, refreshTodosList }) => {
+export const TodoForm = ({
+	setTitleToSearch,
+	refreshTodosList,
+	sortOrder,
+	changeSortOrder,
+}) => {
 	const [newTodo, setNewTodo] = useState("");
 	const [searchValue, setSearchValue] = useState("");
 
@@ -58,6 +66,11 @@ export const TodoForm = ({ setTitleToSearch, refreshTodosList }) => {
 				>
 					<img src={clearIcon} alt="X" className={styles.clearIcon} />
 				</button>
+				<IconButton
+					handleOnClick={changeSortOrder}
+					src={sortOrder === "asc" ? sortAscIcon : sortDescIcon}
+					alt="Сортировать"
+				/>
 			</div>
 		</div>
 	);

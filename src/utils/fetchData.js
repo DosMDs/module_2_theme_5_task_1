@@ -13,6 +13,8 @@ export const fetchData = async (props) => {
 	}
 
 	if (method === "GET") {
+		url += `?_sort=title&_order=${props.order}`;
+
 		const searchParams = Object.keys(search)
 			.map((field) => {
 				if (search[field]) {
@@ -22,7 +24,7 @@ export const fetchData = async (props) => {
 			.join("&");
 
 		if (searchParams) {
-			url += `?${searchParams}`;
+			url += `&${searchParams}`;
 		}
 	} else if (body) {
 		params.headers = { "Content-Type": "application/json;charset=utf-8" };

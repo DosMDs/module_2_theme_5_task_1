@@ -13,7 +13,7 @@ function App() {
 		setRefreshTodosFlag(!refreshTodosFlag);
 	};
 
-	const { todos, isLoading } = useGetTodos(
+	const { todos, isLoading, sortOrder, changeSortOrder } = useGetTodos(
 		titleToSearch,
 		refreshTodosFlag,
 		setError
@@ -24,6 +24,8 @@ function App() {
 			<TodoForm
 				setTitleToSearch={setTitleToSearch}
 				refreshTodosList={refreshTodosList}
+				sortOrder={sortOrder}
+				changeSortOrder={changeSortOrder}
 			/>
 			{error ? (
 				<h1>{error}</h1>
