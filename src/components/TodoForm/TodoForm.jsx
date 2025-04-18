@@ -59,6 +59,11 @@ export const TodoForm = ({ setTitleToSearch }) => {
 				>
 					<img src={clearIcon} alt="X" className={styles.clearIcon} />
 				</button>
+				<IconButton
+					handleOnClick={changeSortOrder}
+					src={sortOrder === "asc" ? sortAscIcon : sortDescIcon}
+					alt="Сортировать"
+				/>
 			</div>
 		</div>
 	);
