@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import clearIcon from "../../assets/clear.svg";
 import styles from "./TodoForm.module.css";
 import { useAddTodo } from "../../hooks";
+import { IconButton } from "../IconButton/IconButton";
+import sortAscIcon from "../../assets/sort-asc.svg";
+import sortDescIcon from "../../assets/sort-desc.svg";
 
-export const TodoForm = ({ setTitleToSearch }) => {
+export const TodoForm = ({ setTitleToSearch, sortOrder, changeSortOrder }) => {
 	const [newTodo, setNewTodo] = useState("");
 	const [searchValue, setSearchValue] = useState("");
 

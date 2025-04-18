@@ -10,7 +10,7 @@ const firebaseConfig = {
 	storageBucket: "todolist-f2085.firebasestorage.app",
 	messagingSenderId: "679115214618",
 	appId: "1:679115214618:web:9b1ec4a76321505f7426a3",
-	databaseUrl:
+	databaseURL:
 		"https://todolist-f2085-default-rtdb.europe-west1.firebasedatabase.app/",
 };
 

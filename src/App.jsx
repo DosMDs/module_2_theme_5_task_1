@@ -5,12 +5,21 @@ import styles from "./App.module.css";
 
 function App() {
 	const [titleToSearch, setTitleToSearch] = useState("");
+	const [sortOrder, setSortOrder] = useState("asc");
 
-	const { todos, isLoading } = useGetTodos();
+	const { todos, isLoading } = useGetTodos(sortOrder, titleToSearch);
+
+	const changeSortOrder = () => {
+		setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+	};
 
 	return (
 		<div className={styles.todoContainer}>
-			<TodoForm setTitleToSearch={setTitleToSearch} />
+			<TodoForm
+				setTitleToSearch={setTitleToSearch}
+				sortOrder={sortOrder}
+				changeSortOrder={changeSortOrder}
+			/>
 			{isLoading ? (
 				<div className={styles.loader} />
 			) : (
